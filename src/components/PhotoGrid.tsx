@@ -2,11 +2,13 @@ import "./PhotoGrid.css";
 
 type Props = {
   photos: string[];
+  totalCount: number;
 };
 
-export default function PhotoGrid({ photos }: Props) {
+export default function PhotoGrid({ photos, totalCount }: Props) {
   const visible = photos.slice(0, 5);
   const remaining = photos.length - 5;
+  const showOverlay = totalCount > photos.length;
 
   return (
     <div className="fb-grid">
@@ -22,8 +24,8 @@ export default function PhotoGrid({ photos }: Props) {
         {visible.slice(2, 5).map((url, i) => (
           <div className="cell" key={i}>
             <img src={url} />
-            {i === 2 && remaining > 0 && (
-              <div className="overlay">+{remaining}</div>
+            {i === 2 && showOverlay && (
+              <div className="overlay">+{totalCount - photos.length}</div>
             )}
           </div>
         ))}

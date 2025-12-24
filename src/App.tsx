@@ -146,7 +146,7 @@ export default function App() {
                 >
                   ♥
                 </span>
-                <PhotoGrid photos={combo} />
+                <PhotoGrid photos={combo} totalCount={photos.length} />
               </div>
             );
           })}

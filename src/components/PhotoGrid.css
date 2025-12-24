@@ -1,0 +1,54 @@
+.fb-grid {
+  max-width: 420px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ROWS */
+.row {
+  display: grid;
+  gap: 4px;
+}
+
+.row-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.row-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* CELLS */
+.cell {
+  position: relative;
+  background: #000;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.cell.hero {
+  aspect-ratio: 4 / 3;
+}
+
+/* IMAGE */
+.cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* +N overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 1rem;
   background: #222;
+  color: #fff;
 }
 
 .app-container {
@@ -29,7 +30,6 @@ input[type="file"] {
 }
 body,
 .app-container {
-  color: #222;
   min-height: 100vh;
   margin: 0;
   padding: 0;

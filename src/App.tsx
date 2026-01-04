@@ -39,6 +39,8 @@ export default function App() {
     return saved ? new Set(JSON.parse(saved)) : new Set();
   });
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Step 1: handle file input
   const handleFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -163,6 +165,29 @@ export default function App() {
         )
       : [];
   const totalUploadedCount = photos.length;
+
+  useEffect(() => {
+    if (!window.geosync?.onInitialFolderPath) return;
+    const handler = async (_event: unknown, folderPath: string) => {
+      if (folderPath && window.geosync?.readFolderPath) {
+        setIsLoading(true);
+        setError(null);
+        try {
+          const data = await window.geosync.readFolderPath(folderPath);
+          handleSelection(data);
+        } catch (err: any) {
+          setError(`Failed to load folder: ${err.message}`);
+          setIsLoading(false);
+        }
+      }
+    };
+    window.geosync.onInitialFolderPath(handler);
+    return () => {
+      if (window.geosync?.offInitialFolderPath) {
+        window.geosync.offInitialFolderPath(handler);
+      }
+    };
+  }, [handleSelection]);
 
   return (
     <div
